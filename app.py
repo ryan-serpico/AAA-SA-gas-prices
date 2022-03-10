@@ -33,5 +33,6 @@ def priceScraper(url):
     df[''] = ['Regular', 'Diesel']
     df['Price'] = prices
     print(df)
+    df.to_csv('gasPrices.csv', index=False)
 
 priceScraper(url)
