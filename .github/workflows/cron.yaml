@@ -20,7 +20,7 @@ jobs:
         with:
           python-version: "3.8"
       - name: 💿 Install Requirements
-        run: pip install -r requirements.txt
+        run: pip3 install -r requirements.txt
       - name: 🍳 Update dataset
         run: python app.py
       - name: 🚀 Commit and push if it changed
