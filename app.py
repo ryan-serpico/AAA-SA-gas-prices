@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 from urllib.request import Request, urlopen
 import pandas as pd
-import csv
 
 url = 'https://gasprices.aaa.com/?state=TX'
 
