@@ -6,7 +6,10 @@ on:
       - master
   schedule:
     - cron: "0 */6 * * *"
-  on: push
+  on:
+    push:
+      branches:
+        - main
 
 jobs:
   build-and-deploy:
