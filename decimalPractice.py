@@ -1,10 +1,6 @@
-from bs4 import BeautifulSoup
-from urllib.request import Request, urlopen
-import pandas as pd
 import decimal
 
-
-url = 'https://gasprices.aaa.com/?state=TX'
+d = decimal.Decimal(4.8676767)
 
 # Source: https://docs.python.org/3/library/decimal.html
 def moneyfmt(value, places=2, curr='', sep=',', dp='.',
@@ -57,35 +53,5 @@ def moneyfmt(value, places=2, curr='', sep=',', dp='.',
     build(neg if sign else pos)
     return ''.join(reversed(result))
 
-
-def priceScraper(url):
-    req = Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    page = urlopen(req).read()
-    soup = BeautifulSoup(page, 'html.parser')
-    cities = soup.find_all('h3')
-    # print(cities)
-    index = 0
-    for h3 in cities:
-        if h3.text == 'San Antonio':
-            # print('Found San Antonio! Its index is {}'.format(index))
-            break
-        else:
-            # print('Nope')
-            index += 1  
-    print('------------------------------------------------------')
-    sanAntonioRow = cities[index]
-    print(sanAntonioRow.text)
-    priceRow = sanAntonioRow.find_next_sibling().find_all('tr')[1]
-    regularGasPrice = moneyfmt(decimal.Decimal(priceRow.find_all('td')[1].text[1:]), places=2, curr='$', sep=',', dp='.')
-    dieselGasPrice = moneyfmt(decimal.Decimal(priceRow.find_all('td')[4].text[1:]), places=2, curr='$', sep=',', dp='.')
-    prices = [regularGasPrice, dieselGasPrice]
-    # print('Regular: {}'.format(regularGasPrice))
-    # print('Diesel: {}'.format(dieselGasPrice))
-
-    df = pd.DataFrame()
-    df[''] = ['Regular', 'Diesel']
-    df['Price'] = prices
-    print(df)
-    df.to_csv('gasPrices.csv', index=False)
-
-priceScraper(url)
+print(d)
+print(type(moneyfmt(d, places=2, sep=',', dp='.',)))
